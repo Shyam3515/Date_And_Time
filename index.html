@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Calendar</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="hero">
+      <div class="calendar">
+        <div class="left" id="left">
+          <div id="date">01</div>
+          <div id="day1">Sunday</div>
+        </div>
+        <div class="right" id="right">
+          <div id="month">January</div>
+          <div id="year">2020</div>
+        </div>
+      </div>
+
+      <!-- time -->
+      <div class="dateContainer">
+        <!-- time -->
+        <div class="time">
+          <div id="hours"></div>
+
+          <div id="minutes"></div>
+
+          <div id="seconds"></div>
+        </div>
+
+        <!-- date -->
+        <div class="date">
+          <div id="day"></div>
+          <div id="totalDate"></div>
+          <div id="ampm"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const today = new Date();
+      const day1 = document.getElementById("day1");
+      const date = document.getElementById("date");
+      const month = document.getElementById("month");
+      const year = document.getElementById("year");
+
+      day1.innerHTML = today.toLocaleDateString("en-us", { weekday: "long" });
+      date.innerHTML = today.getDate().toString().padStart(2, "0"); //pads the date always to 2 digits - leading with 0
+      month.innerHTML = today.toLocaleDateString("en-us", { month: "long" }); //converts month to long format String
+      year.innerHTML = today.getFullYear();
+
+      const day = document.getElementById("day");
+      const totalDate = document.getElementById("totalDate");
+      //Your code is using toLocaleDateString() to convert the weekday and month into their long format,
+      day.innerHTML = today.toLocaleDateString("en-us", { weekday: "long" }); //converts weekday to long format String
+      totalDate.innerHTML =
+        today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+
+      // Set interval to update every second
+      setInterval(timer, 1000);
+      function timer() {
+        const date = new Date();
+
+        // Get hours, minutes, and seconds
+        let hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+        // Determine AM/PM
+        const ampm = hours >= 12 ? "PM" : "AM";
+
+        /*For example:
+             =>  13 % 12 = 1 (1 PM)
+                 15 % 12 = 3 (3 PM)
+                 0 % 12 = 0 (this is the special case we handle later)
+
+             => || 12:
+             The || operator is the logical OR operator.
+             If the value on the left side of || is falsy (like 0), the value on the right side (in this case, 12) will be used.*/
+
+        hours = hours % 12 || 12; // Converts 0 hours to 12 and keeps other hours in 12-hour format
+
+        // Display the values in separate elements
+        document.getElementById("hours").innerHTML = hours
+          .toString()
+          .padStart(2, "0"); // 2-digit format
+        document.getElementById("minutes").innerHTML = minutes
+          .toString()
+          .padStart(2, "0"); // 2-digit format
+        document.getElementById("seconds").innerHTML = seconds
+          .toString()
+          .padStart(2, "0"); // 2-digit format
+
+        document.getElementById("ampm").innerHTML = ampm; // AM or PM
+      }
+    </script>
+  </body>
+</html>
