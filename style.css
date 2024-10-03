@@ -93,7 +93,7 @@
   background-color: #ee0c18;
 }
 #minutes {
-  background-color: #10e041;
+  background-color: #049626;
 }
 #seconds {
   background-color: #62572a;
@@ -111,5 +111,6 @@
 #day,
 #totalDate,
 #ampm {
-  color: #777b83;
+  /* color: #777b83; */
+  color: #a5d4fc;
 }
