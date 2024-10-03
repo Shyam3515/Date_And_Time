@@ -20,8 +20,8 @@
 .calendar {
   margin: 20px;
   width: 300px;
-  height: 250px;
-  border-radius: 10px;
+  height: 240px;
+  border-radius: 16px;
   background-color: white;
   display: flex;
   align-items: center;
@@ -90,13 +90,13 @@
 }
 
 #hours {
-  background-color: #f95659;
+  background-color: #ee0c18;
 }
 #minutes {
-  background-color: #2cca75;
+  background-color: #10e041;
 }
 #seconds {
-  background-color: #f3bc58;
+  background-color: #62572a;
 }
 
 .date {
