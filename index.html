@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="hero">
+    <div class="container">
+      <!-- Calendar -->
       <div class="calendar">
         <div class="left" id="left">
           <div id="date">01</div>
@@ -19,22 +20,56 @@
         </div>
       </div>
 
-      <!-- time -->
+      <!-- Digital Container -->
       <div class="dateContainer">
         <!-- time -->
         <div class="time">
           <div id="hours"></div>
-
           <div id="minutes"></div>
-
           <div id="seconds"></div>
         </div>
-
         <!-- date -->
         <div class="date">
           <div id="day"></div>
           <div id="totalDate"></div>
           <div id="ampm"></div>
+        </div>
+      </div>
+
+      <!-- Analog Container-->
+      <div class="anac">
+        <div class="analog">
+          <!-- .hour.hour-1${1}*12 -->
+          <div class="hour hour-1">1</div>
+          <div class="hour hour-2">2</div>
+          <div class="hour hour-3">3</div>
+          <div class="hour hour-4">4</div>
+          <div class="hour hour-5">5</div>
+          <div class="hour hour-6">6</div>
+          <div class="hour hour-7">7</div>
+          <div class="hour hour-8">8</div>
+          <div class="hour hour-9">9</div>
+          <div class="hour hour-10">10</div>
+          <div class="hour hour-11">11</div>
+          <div class="hour hour-12">12</div>
+          <!-- points -->
+          <div class="point"></div>
+          <!-- hands -->
+          <div class="seconds-hand-wrapper" id="sec-hand">
+            <div class="secs-hand">
+              <div class="sec-hand"></div>
+            </div>
+          </div>
+          <div class="minutes-hand-wrapper" id="min-hand">
+            <div class="mins-hand">
+              <div class="min-hand"></div>
+            </div>
+          </div>
+          <div class="hours-hand-wrapper" id="hour-hand">
+            <div class="hrs-hand">
+              <div class="hour-hand"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -71,13 +106,13 @@
         const ampm = hours >= 12 ? "PM" : "AM";
 
         /*For example:
-             =>  13 % 12 = 1 (1 PM)
-                 15 % 12 = 3 (3 PM)
-                 0 % 12 = 0 (this is the special case we handle later)
+                   =>  13 % 12 = 1 (1 PM)
+                       15 % 12 = 3 (3 PM)
+                       0 % 12 = 0 (this is the special case we handle later)
 
-             => || 12:
-             The || operator is the logical OR operator.
-             If the value on the left side of || is falsy (like 0), the value on the right side (in this case, 12) will be used.*/
+                   => || 12:
+                   The || operator is the logical OR operator.
+                   If the value on the left side of || is falsy (like 0), the value on the right side (in this case, 12) will be used.*/
 
         hours = hours % 12 || 12; // Converts 0 hours to 12 and keeps other hours in 12-hour format
 
@@ -94,6 +129,44 @@
 
         document.getElementById("ampm").innerHTML = ampm; // AM or PM
       }
+      // //////////////////// ANALOG  ////////////////////////
+      let second = 0;
+      let minute = 0;
+      let hour = 0;
+      let d = new Date();
+
+      setInterval(function () {
+        d = new Date();
+        second = d.getSeconds() * 6;
+        minute = d.getMinutes() * 6;
+        hour = d.getHours() * 30 + Math.round(minute / 12);
+        document.getElementById(
+          "sec-hand"
+        ).style.transform = `rotate(${second}deg)`;
+        document.getElementById(
+          "min-hand"
+        ).style.transform = `rotate(${minute}deg)`;
+        document.getElementById(
+          "hour-hand"
+        ).style.transform = `rotate(${hour}deg)`;
+      }, 1000);
     </script>
   </body>
 </html>
+<!-- hands
+          <div class="seconds-hand">
+            <div class="secs-hand">
+              <div class="sec-hand"></div>
+            </div>
+          </div>
+          <div class="minutes-hand">
+            <div class="mins-hand">
+              <div class="min-hand"></div>
+            </div>
+          </div>
+          <div class="hours-hand">
+            <div class="hrs-hand">
+              <div class="hour-hand"></div>
+            </div>
+          </div>
+        </div> -->
